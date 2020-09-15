@@ -21,6 +21,8 @@ class Contacts extends Component {
 
         editmode: false,
         editid: -1,
+
+        errordelete: ''
      }
 
     componentDidMount=()=>{
@@ -53,6 +55,8 @@ class Contacts extends Component {
 
             editmode: false,
             editid: -1,
+
+            errordelete: ''
         })
     }
 
@@ -92,9 +96,8 @@ class Contacts extends Component {
             this.clearData()
         }).catch((err)=>{
             console.log(err)
-            
-        }).finally(()=>{
-            this.clearData()
+            // this.clearData()
+            this.setState({errordelete:'Fail To Delete Data',isDeleting:false})
         })
 
 
@@ -224,6 +227,13 @@ class Contacts extends Component {
                                 Delete
                             </Button>
                         </Card.Content>
+                    }
+                    {
+                        this.state.errordelete&&this.state.indexdelete==index?
+                        <div style={{textAlign:'center'}}>
+                            <span style={{color:'red'}}>{this.state.errordelete}</span>
+                        </div>
+                        : null
                     }
                 </Card>
             )
